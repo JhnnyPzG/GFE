@@ -1,27 +1,114 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('analyzeButton').addEventListener('click', async () => {
-        const xmlFile = document.getElementById('xmlFile').files[0];
-        const formData = new FormData();
-        formData.append('xmlFile', xmlFile);
+    const dropArea = document.getElementById('dropArea');
+    const analyzeButton = document.getElementById('analyzeButton');
+    const xmlFileInput = document.getElementById('xmlFile');
+    const fileNamesContainer = document.getElementById('fileNames');
 
-        try {
-            const response = await fetch('/upload', {
-                method: 'POST',
-                body: formData,
-            });
+    let xmlFiles = [];
 
-            if (response.ok) {
-                const excelData = await response.arrayBuffer();
-                const blob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-                const url = URL.createObjectURL(blob);
-                const downloadLink = document.getElementById('downloadLink');
-                downloadLink.href = url;
-                downloadLink.style.display = 'block';
-            } else {
-                alert('Error al analizar la factura');
-            }
-        } catch (error) {
-            console.error('Error:', error);
+    dropArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropArea.classList.add('active');
+    });
+
+    dropArea.addEventListener('dragleave', () => {
+        dropArea.classList.remove('active');
+    });
+
+    dropArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+
+        dropArea.classList.remove('active');
+
+        xmlFiles = Array.from(e.dataTransfer.files);
+        displayFileNames(xmlFiles);
+
+        // Verificar si los archivos son XML antes de mostrar el botón de Analizar Facturas
+        const areAllFilesXml = xmlFiles.every(file => file.name.toLowerCase().endsWith('.xml'));
+
+        analyzeButton.style.display = areAllFilesXml && xmlFiles.length > 0 ? 'block' : 'none';
+
+        // Mostrar mensaje de error si hay archivos no XML
+        if (!areAllFilesXml) {
+            alert('Por favor, carga solo archivos XML.');
+            xmlFiles = [];
+            displayFileNames(xmlFiles);
+            analyzeButton.style.display = 'none';
         }
     });
+
+    // Evento al seleccionar archivos usando el input
+    xmlFileInput.addEventListener('change', (e) => {
+        xmlFiles = Array.from(e.target.files);
+        displayFileNames(xmlFiles);
+
+        // Verificar si los archivos son XML antes de mostrar el botón de Analizar Facturas
+        const areAllFilesXml = xmlFiles.every(file => file.name.toLowerCase().endsWith('.xml'));
+        analyzeButton.style.display = areAllFilesXml && xmlFiles.length > 0 ? 'block' : 'none';
+
+        // Mostrar mensaje de error si hay archivos no XML
+        if (!areAllFilesXml) {
+            alert('Por favor, carga solo archivos XML.');
+            xmlFiles = [];
+            displayFileNames(xmlFiles);
+            analyzeButton.style.display = 'none';
+        }
+    });
+
+    document.getElementById('analyzeButton').addEventListener('click', async () => {
+        await handleFiles(xmlFiles);
+    });
 });
+
+function displayFileNames(files) {
+    const fileNamesContainer = document.getElementById('fileNames');
+    fileNamesContainer.innerHTML = '';
+
+    files.forEach(file => {
+        const fileNameElement = document.createElement('p');
+        fileNameElement.textContent = file.name;
+        fileNamesContainer.appendChild(fileNameElement);
+    });
+}
+
+async function handleFiles(files) {
+    const formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+        formData.append('xmlFiles', files[i]);
+    }
+
+    try {
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (response.ok) {
+            const zipData = await response.arrayBuffer();
+            const zipBlob = new Blob([zipData], { type: 'application/zip' });
+            const url = URL.createObjectURL(zipBlob);
+
+            const downloadLink = document.createElement('a');
+            downloadLink.href = url;
+            downloadLink.download = 'facturas.zip';
+            downloadLink.click();
+        } else {
+            alert('Error al analizar los archivos');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+function handleDrop(event) {
+    event.preventDefault();
+    const xmlFiles = event.dataTransfer.files;
+    displayFileNames(Array.from(xmlFiles));
+    return false;
+}
+
+function handleDragOver(event) {
+    event.preventDefault();
+    return false;
+}

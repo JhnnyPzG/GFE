@@ -4,17 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factura Analyzer</title>
+    <title>Gestor de Facturación Electrónica</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Factura Analyzer</h1>
-    <input type="file" id="xmlFile" accept=".xml">
-    <button id="analyzeButton">Analizar Factura</button>
-    <a id="downloadLink" style="display:none" download="invoice_data.xlsx">Descargar Excel</a>
+    <div class="container">
+        <h1>Conozca que contiene su factura electrónica</h1>
 
-    <script src="script.js"></script>
+        <div id="dropArea" class="drop-area" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+            Arrastra y suelta tus archivos aquí.
+            <label for="xmlFile" class="file-label">Haz clic para seleccionar</label>
+            <input type="file" id="xmlFile" accept=".xml" multiple>
+        </div>
+
+        <button id="analyzeButton" style="display: none;">Generar Informe</button>
+
+        <div id="fileNames"></div>
+
+        <script src="script.js"></script>
+    </div>
 </body>
 
 </html>
