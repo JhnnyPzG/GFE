@@ -24,15 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
         xmlFiles = Array.from(e.dataTransfer.files);
         displayFileNames(xmlFiles);
 
-        // Verificar si los archivos son XML antes de mostrar el botón de Analizar Facturas
-        const areAllFilesXml = xmlFiles.every(file => file.name.toLowerCase().endsWith('.xml'));
+        // Verificar si los archivos son XML o ZIP antes de mostrar el botón de Analizar Facturas
+        const areAllFilesValid = xmlFiles.every(file => file.name.toLowerCase().endsWith('.xml') || file.name.toLowerCase().endsWith('.zip'));
 
-        analyzeButton.style.display = areAllFilesXml && xmlFiles.length > 0 ? 'block' : 'none';
-        deleteButton.style.display = areAllFilesXml && xmlFiles.length > 0 ? 'block' : 'none'; // Muestra el botón de eliminar
+        analyzeButton.style.display = areAllFilesValid && xmlFiles.length > 0 ? 'block' : 'none';
+        deleteButton.style.display = areAllFilesValid && xmlFiles.length > 0 ? 'block' : 'none'; // Muestra el botón de eliminar
 
-        // Mostrar mensaje de error si hay archivos no XML
-        if (!areAllFilesXml) {
-            alert('Por favor, carga solo archivos XML.');
+        // Mostrar mensaje de error si hay archivos no XML o ZIP
+        if (!areAllFilesValid) {
+            alert('Por favor, carga solo archivos XML o ZIP.');
             xmlFiles = [];
             displayFileNames(xmlFiles);
             analyzeButton.style.display = 'none';
@@ -45,14 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
         xmlFiles = Array.from(e.target.files);
         displayFileNames(xmlFiles);
 
-        // Verificar si los archivos son XML antes de mostrar el botón de Analizar Facturas
-        const areAllFilesXml = xmlFiles.every(file => file.name.toLowerCase().endsWith('.xml'));
-        analyzeButton.style.display = areAllFilesXml && xmlFiles.length > 0 ? 'block' : 'none';
-        deleteButton.style.display = areAllFilesXml && xmlFiles.length > 0 ? 'block' : 'none'; // Muestra el botón de eliminar
+        // Verificar si los archivos son XML o ZIP antes de mostrar el botón de Analizar Facturas
+        const areAllFilesValid = xmlFiles.every(file => file.name.toLowerCase().endsWith('.xml') || file.name.toLowerCase().endsWith('.zip'));
+        analyzeButton.style.display = areAllFilesValid && xmlFiles.length > 0 ? 'block' : 'none';
+        deleteButton.style.display = areAllFilesValid && xmlFiles.length > 0 ? 'block' : 'none'; // Muestra el botón de eliminar
 
-        // Mostrar mensaje de error si hay archivos no XML
-        if (!areAllFilesXml) {
-            alert('Por favor, carga solo archivos XML.');
+        // Mostrar mensaje de error si hay archivos no XML o ZIP
+        if (!areAllFilesValid) {
+            alert('Por favor, carga solo archivos XML o ZIP.');
             xmlFiles = [];
             displayFileNames(xmlFiles);
             analyzeButton.style.display = 'none';
@@ -100,21 +100,22 @@ async function handleFiles(files) {
         });
 
         if (response.ok) {
-            const zipData = await response.arrayBuffer();
-            const zipBlob = new Blob([zipData], { type: 'application/zip' });
-            const url = URL.createObjectURL(zipBlob);
+            const excelData = await response.arrayBuffer();
+            const excelBlob = new Blob([excelData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const url = URL.createObjectURL(excelBlob);
 
             const downloadLink = document.createElement('a');
             downloadLink.href = url;
-            downloadLink.download = 'Facturas.zip';
+            downloadLink.download = 'Facturas.xlsx';
             downloadLink.click();
         } else {
-            alert('Error al analizar los archivos');
+            alsert('Error al analizar los archivos');
         }
     } catch (error) {
         console.error('Error:', error);
     }
 }
+
 
 function handleDrop(event) {
     event.preventDefault();

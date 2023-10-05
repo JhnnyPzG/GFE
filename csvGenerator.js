@@ -19,7 +19,6 @@ function formatColumnName(columnName) {
     return formattedColumnName;
 }
 
-
 // Función para aplanar los datos, incluyendo los objetos con propiedades .Name o .Label
 function flattenData(data) {
     const flattenedData = flatten(data);
@@ -39,7 +38,6 @@ function flattenData(data) {
 
     return flattenedData;
 }
-
 
 async function generateCSV(jsonData) {
     console.log(jsonData)
@@ -63,8 +61,11 @@ async function generateCSV(jsonData) {
         }, {});
     });
 
-    const parser = new Parser({ flatten: true });
-    const csv = parser.parse(orderedData);
+    const parser = new Parser({ flatten: true }); // Desactiva las comillas
+    let csv = parser.parse(orderedData);
+
+    // Eliminar las comillas de la cadena CSV
+    csv = csv.replace(/"/g, '');
 
     // Convertir los caracteres especiales a su representación correcta
     const finalCsv = csv.replace(/\\u([\d\w]{4})/gi, (match, grp) => {
@@ -82,7 +83,5 @@ async function generateCSV(jsonData) {
 
     return finalCsv;
 }
-
-
 
 module.exports = { generateCSV };
