@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const axios = require('axios');
 const bodyParser = require('body-parser');
-const excelGenerator = require('./excelGenerator');
+const csvGenerator = require('./csvGenerator');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,11 +16,11 @@ const upload = multer({ storage: storage });
 
 app.post('/upload', upload.array('xmlFiles', 20), async (req, res) => {
     try {
-        const excelBuffers = [];
+        const csvBuffers = [];
 
         for (let i = 0; i < req.files.length; i++) {
             const xmlData = req.files[i].buffer.toString('utf-8');
-            const response = await axios.post('http://dev.creativosdigitales.co:8080/basex/analizar/campos-factura-det', xmlData, {
+            const response = await axios.post('http://dev.creativosdigitales.co:8080/basex/analizar/tabla', xmlData, {
                 headers: {
                     'Content-Type': 'application/xml',
                 },
@@ -28,24 +28,24 @@ app.post('/upload', upload.array('xmlFiles', 20), async (req, res) => {
 
             const jsonData = response.data;
 
-            // Generar hoja de Excel
-            const excelBuffer = await excelGenerator.generateExcel(jsonData);
+            // Generar archivo CSV
+            const csvContent = await csvGenerator.generateCSV(jsonData);
 
-            excelBuffers.push({
-                buffer: excelBuffer,
-                filename: `invoice_data_${i}.xlsx`
+            csvBuffers.push({
+                buffer: Buffer.from(csvContent),
+                filename: `Factura${i}.csv`
             });
         }
 
         const zip = new require('node-zip')();
-        excelBuffers.forEach((file) => {
+        csvBuffers.forEach((file) => {
             zip.file(file.filename, file.buffer);
         });
 
         const zipContent = zip.generate({ type: 'nodebuffer' });
 
         res.setHeader('Content-Type', 'application/zip');
-        res.setHeader('Content-Disposition', 'attachment; filename=invoice_data.zip');
+        res.setHeader('Content-Disposition', 'attachment; filename=Factura.zip');
         res.send(zipContent);
 
     } catch (error) {
@@ -55,9 +55,6 @@ app.post('/upload', upload.array('xmlFiles', 20), async (req, res) => {
 });
 
 
-
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
-

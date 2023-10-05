@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const dropArea = document.getElementById('dropArea');
     const analyzeButton = document.getElementById('analyzeButton');
+    const deleteButton = document.getElementById('deleteButton'); // Nuevo botón
     const xmlFileInput = document.getElementById('xmlFile');
     const fileNamesContainer = document.getElementById('fileNames');
 
@@ -27,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const areAllFilesXml = xmlFiles.every(file => file.name.toLowerCase().endsWith('.xml'));
 
         analyzeButton.style.display = areAllFilesXml && xmlFiles.length > 0 ? 'block' : 'none';
+        deleteButton.style.display = areAllFilesXml && xmlFiles.length > 0 ? 'block' : 'none'; // Muestra el botón de eliminar
 
         // Mostrar mensaje de error si hay archivos no XML
         if (!areAllFilesXml) {
@@ -34,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             xmlFiles = [];
             displayFileNames(xmlFiles);
             analyzeButton.style.display = 'none';
+            deleteButton.style.display = 'none'; // Oculta el botón de eliminar
         }
     });
 
@@ -45,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Verificar si los archivos son XML antes de mostrar el botón de Analizar Facturas
         const areAllFilesXml = xmlFiles.every(file => file.name.toLowerCase().endsWith('.xml'));
         analyzeButton.style.display = areAllFilesXml && xmlFiles.length > 0 ? 'block' : 'none';
+        deleteButton.style.display = areAllFilesXml && xmlFiles.length > 0 ? 'block' : 'none'; // Muestra el botón de eliminar
 
         // Mostrar mensaje de error si hay archivos no XML
         if (!areAllFilesXml) {
@@ -52,7 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
             xmlFiles = [];
             displayFileNames(xmlFiles);
             analyzeButton.style.display = 'none';
+            deleteButton.style.display = 'none'; // Oculta el botón de eliminar
         }
+    });
+
+    // Evento al hacer clic en el botón de eliminar
+    deleteButton.addEventListener('click', () => {
+        xmlFiles = [];
+        displayFileNames(xmlFiles);
+        analyzeButton.style.display = 'none';
+        deleteButton.style.display = 'none';
+        xmlFileInput.value = null; // Restablece el valor del elemento de entrada de archivo
     });
 
     document.getElementById('analyzeButton').addEventListener('click', async () => {
@@ -70,6 +84,7 @@ function displayFileNames(files) {
         fileNamesContainer.appendChild(fileNameElement);
     });
 }
+
 
 async function handleFiles(files) {
     const formData = new FormData();
@@ -91,7 +106,7 @@ async function handleFiles(files) {
 
             const downloadLink = document.createElement('a');
             downloadLink.href = url;
-            downloadLink.download = 'facturas.zip';
+            downloadLink.download = 'Facturas.zip';
             downloadLink.click();
         } else {
             alert('Error al analizar los archivos');
