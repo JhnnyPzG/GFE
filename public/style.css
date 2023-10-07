@@ -101,6 +101,18 @@ h1 {
     margin: 5px 0;
 }
 
+.custom-alert {
+    background-color: #ffc400;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
 /* Estilos para pantallas con un ancho máximo de 600px */
 @media only screen and (max-width: 600px) {
     

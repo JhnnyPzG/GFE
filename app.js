@@ -19,11 +19,11 @@ const upload = multer({ storage: storage });
 app.post('/upload', upload.any(), async (req, res) => {
     try {
         const workbook = new ExcelJS.Workbook();
+        let worksheet;
 
         for (let i = 0; i < req.files.length; i++) {
             let xmlDataArray;
             if (req.files[i].originalname.endsWith('.zip')) {
-                // Descomprimir el archivo ZIP
                 const zip = new AdmZip(req.files[i].buffer);
                 const zipEntries = zip.getEntries();
 
@@ -42,19 +42,20 @@ app.post('/upload', upload.any(), async (req, res) => {
 
                 const jsonData = response.data;
 
-                // Generar archivo CSV
                 const csvContent = await csvGenerator.generateCSV(jsonData);
 
-                // Convertir el contenido del CSV en un array de arrays para ExcelJS
                 const rows = csvContent.split('\n').map(row => row.split(','));
 
-                // Añadir las filas a una nueva hoja de cálculo en el workbook
-                const worksheet = workbook.addWorksheet(`Factura${i}_${j}`);
-                worksheet.addRows(rows);
+                if (!worksheet) { // Si es la primera vez, crea la hoja y añade la cabecera
+                    worksheet = workbook.addWorksheet('Facturas');
+                    worksheet.addRow(rows[0]);
+                }
+
+                // Añade las filas a la hoja de cálculo existente en el workbook
+                worksheet.addRows(rows.slice(1)); // Ignora la cabecera
             }
         }
 
-        // Guardar el workbook como un buffer
         const buffer = await workbook.xlsx.writeBuffer();
 
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
