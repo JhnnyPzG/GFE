@@ -109,7 +109,7 @@ async function handleFiles(files) {
             downloadLink.download = 'Facturas.xlsx';
             downloadLink.click();
         } else {
-            alsert('Error al analizar los archivos');
+            alert('Error al analizar los archivos');
         }
     } catch (error) {
         console.error('Error:', error);
