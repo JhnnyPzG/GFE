@@ -34,21 +34,7 @@ async function generateCSV(jsonData) {
         flattenedJson = flattenData(jsonData.Detalles);
     }
 
-    let allKeys = [];
-    flattenedJson.forEach(item => {
-        allKeys = [...allKeys, ...Object.keys(item)];
-    });
-    let uniqueKeys = [...new Set(allKeys)];
-
-    flattenedJson = flattenedJson.map(item => {
-        let newItem = {};
-        uniqueKeys.forEach(key => {
-            newItem[key] = key in item ? item[key] : '';
-        });
-        return newItem;
-    });
-
-    const orderedKeys = Object.keys(flattenedJson[0]).sort();
+    const orderedKeys = Object.keys(flattenedJson[0]);
 
     const orderedData = flattenedJson.map(item => {
         return orderedKeys.reduce((obj, key) => {

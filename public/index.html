@@ -6,58 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Facturación Electrónica</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <style>
-        .ui-dialog-titlebar {
-            background: #524f4b;
-            /* Cambia el color de fondo de la barra de título */
-            color: #ffc400;
-            /* Cambia el color del texto de la barra de título */
-            font-family: Arial, sans-serif;
-            /* Cambia la fuente de la barra de título */
-            text-align: center;
-        }
-
-        .ui-dialog-content {
-            /* Cambia el tamaño de fuente del contenido del cuadro de diálogo */
-            font-size: 18px;
-            /* Aumenta el tamaño de fuente del contenido del cuadro de diálogo */
-            font-family: Arial, sans-serif;
-            color: #fff
-        }
-
-        .ui-dialog-buttonset button {
-            background-color: #ffc400;
-            /* Cambia el color de fondo de los botones */
-            border: none;
-            color: #fff;
-            /* Cambia el color del texto de los botones */
-            font-family: Arial, sans-serif;
-        }
-
-        .ui-dialog-buttonset {
-            color: #252525
-        }
-
-
-        .ui-dialog-buttonset button:hover {
-            background-color: #9e7a03;
-            /* Cambia el color de fondo al pasar el ratón por encima de los botones */
-        }
-
-        .ui-dialog {
-            max-width: 600px;
-            /* Establece un ancho máximo para el cuadro de diálogo */
-            background-color: #252525;
-        }
-    </style>
 </head>
 
 <body>
     <div class="container">
         <h1>Conozca que contiene su factura electrónica</h1>
+
+        <div id="tutorial" style="margin: 20px 0; padding: 10px; border: 1px solid #ccc;">
+            Bienvenido a la aplicación de facturación electrónica. Para comenzar, arrastra y suelta tus archivos XML
+            (Máximo 20 archivos o un zip que los contenga) o haz clic en 'Haz clic para seleccionar' para cargarlos.
+            Luego, puedes analizar las facturas y exportar los resultados a Excel. También puedes eliminar los archivos
+            si es necesario.
+        </div>
 
         <div id="dropArea" class="drop-area" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
             Arrastra y suelta tus archivos aquí.
@@ -77,20 +37,4 @@
         <script src="script.js"></script>
     </div>
 </body>
-
-<script>
-    $(document).ready(function () {
-        $("<div title='Tutorial de la Aplicación'>Bienvenido a la aplicación de facturación electrónica. Para comenzar, arrastra y suelta tus archivos XML (Máximo 20 archivos o un zip que los contenga) o haz clic en 'Haz clic para seleccionar' para cargarlos. Luego, puedes analizar las facturas y exportar los resultados a Excel. También puedes eliminar los archivos si es necesario.</div>").dialog({
-            modal: true,
-            buttons: {
-                "Cerrar": function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-    });
-
-
-</script>
-
 </html>

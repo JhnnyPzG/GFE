@@ -7,7 +7,21 @@ body {
 
 h1 {
     color: #ffc400;
+    font: "Source Sans Pro", sans-serif;
 }
+
+#tutorial {
+    background-color: #645e5e;
+    color: white;
+    border: 2px dashed #ffa600;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 16px;
+    max-width: 600px;
+    margin: 20px auto;
+    font: normal normal 300 18px/130% "Source Sans Pro", sans-serif;
+}
+
 
 .container {
     display: flex;
