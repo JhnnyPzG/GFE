@@ -4,8 +4,8 @@ const flatten = require('flat').flatten;
 
 function formatColumnName(columnName) {
     return columnName.replace(/_/g, ' ')
-                     .replace(/[áéíóúñ]/g, match => 
-                        ({'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'nn'}[match]));
+        .replace(/[áéíóúñ]/g, match =>
+            ({ 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'nn' }[match]));
 }
 
 function flattenData(data) {

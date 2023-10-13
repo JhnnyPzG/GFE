@@ -45,12 +45,12 @@ app.post('/upload', upload.any(), async (req, res) => {
 
                 const rows = csvContent.split('\n').map(row => row.split(','));
 
-                if (!worksheet) { 
+                if (!worksheet) {
                     worksheet = workbook.addWorksheet('Facturas');
                     worksheet.addRow(rows[0]);
                 }
 
-                worksheet.addRows(rows.slice(1)); 
+                worksheet.addRows(rows.slice(1));
             }
         }
 
