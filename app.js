@@ -21,19 +21,18 @@ app.post('/upload', upload.any(), async (req, res) => {
         const workbook = new ExcelJS.Workbook();
         let worksheet;
 
-        for (let i = 0; i < req.files.length; i++) {
+        for (let file of req.files) {
             let xmlDataArray;
-            if (req.files[i].originalname.endsWith('.zip')) {
-                const zip = new AdmZip(req.files[i].buffer);
+            if (file.originalname.endsWith('.zip')) {
+                const zip = new AdmZip(file.buffer);
                 const zipEntries = zip.getEntries();
 
                 xmlDataArray = zipEntries.map(entry => entry.getData().toString('utf-8'));
             } else {
-                xmlDataArray = [req.files[i].buffer.toString('utf-8')];
+                xmlDataArray = [file.buffer.toString('utf-8')];
             }
 
-            for (let j = 0; j < xmlDataArray.length; j++) {
-                const xmlData = xmlDataArray[j];
+            for (let xmlData of xmlDataArray) {
                 const response = await axios.post('http://dev.creativosdigitales.co:8080/basex/analizar/tabla', xmlData, {
                     headers: {
                         'Content-Type': 'application/xml',
@@ -46,13 +45,12 @@ app.post('/upload', upload.any(), async (req, res) => {
 
                 const rows = csvContent.split('\n').map(row => row.split(','));
 
-                if (!worksheet) { // Si es la primera vez, crea la hoja y añade la cabecera
+                if (!worksheet) { 
                     worksheet = workbook.addWorksheet('Facturas');
                     worksheet.addRow(rows[0]);
                 }
 
-                // Añade las filas a la hoja de cálculo existente en el workbook
-                worksheet.addRows(rows.slice(1)); // Ignora la cabecera
+                worksheet.addRows(rows.slice(1)); 
             }
         }
 
