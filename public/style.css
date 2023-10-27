@@ -1,32 +1,51 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: 20px;
+    margin: 0;
     background-color: #252525;
+    background-image: url('img/f4.png'); 
+    background-size: cover; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+header {
+    background-color: #8f888826;
+    padding: 20px 0;
+    border-bottom: 2px solid #ffa600;
 }
 
 h1 {
     color: #ffc400;
-    font: "Source Sans Pro", sans-serif;
+    font-family: 18px "Source Sans Pro", sans-serif;
+    font-size: 40px;
+    margin: 0;
 }
 
+
 #tutorial {
-    background-color: #645e5e;
+    background-color: #8f888826;
     color: white;
     border: 2px dashed #ffa600;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 20px;
-    font-size: 16px;
-    max-width: 600px;
-    margin: 20px auto;
-    font: normal normal 300 18px/130% "Source Sans Pro", sans-serif;
+    font-size: 20px;
+    max-width: 800px;
+    font: 22.667px "Source Sans Pro", sans-serif;
+    font-weight: 300;
+    line-height: 130%;
 }
 
 
 .container {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+
 }
 
 .drop-area {
@@ -35,8 +54,9 @@ h1 {
     padding: 50px 200px;
     text-align: center;
     cursor: pointer;
+    margin-top: 50px;
     margin-bottom: 50px;
-    background-color: #645e5e;
+    background-color: #656565;
     color: white;
 }
 
