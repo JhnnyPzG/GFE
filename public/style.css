@@ -147,6 +147,15 @@ h1 {
     margin: 20px auto;
 }
 
+.logo {
+    position: absolute;
+    top: 20px; /* Cambia esto para ajustar la posición vertical del logo */
+    left: 20px; /* Cambia esto para ajustar la posición horizontal del logo */
+    width: 300px; /* Cambia esto para ajustar el ancho del logo */
+    height: auto; /* Esto asegura que la altura del logo se ajuste automáticamente para mantener las proporciones */
+}
+
+
 /* Estilos para pantallas con un ancho máximo de 600px */
 @media only screen and (max-width: 600px) {
     
