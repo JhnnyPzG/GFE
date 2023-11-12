@@ -148,11 +148,11 @@ h1 {
 }
 
 .logo {
-    position: absolute;
-    top: 20px; /* Cambia esto para ajustar la posición vertical del logo */
-    left: 20px; /* Cambia esto para ajustar la posición horizontal del logo */
-    width: 300px; /* Cambia esto para ajustar el ancho del logo */
-    height: auto; /* Esto asegura que la altura del logo se ajuste automáticamente para mantener las proporciones */
+    position: fixed; /* Cambiado de absolute a fixed */
+    bottom: 20px; /* Cambiado de top a bottom */
+    left: 20px;
+    width: 300px;
+    height: auto;
 }
 
 
