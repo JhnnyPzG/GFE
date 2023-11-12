@@ -18,18 +18,17 @@
 
     <div class="container">
 
+        <div id="dropArea" class="drop-area" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
+            Arrastra y suelta tus archivos aquí.
+            <label for="xmlFile" class="file-label">Haz clic para seleccionar</label>
+            <input type="file" id="xmlFile" accept=".xml,.zip" multiple>
+        </div>
 
         <div id="tutorial" style="margin: 20px 0; padding: 10px; border: 1px solid #ccc;">
             Bienvenido a la aplicación de facturación electrónica. Para comenzar, arrastra y suelta tus archivos XML
             (Máximo 20 archivos o un zip que los contenga) o haz clic en 'Haz clic para seleccionar' para cargarlos.
             Luego, puedes analizar las facturas y exportar los resultados a Excel. También puedes eliminar los archivos
             si es necesario.
-        </div>
-
-        <div id="dropArea" class="drop-area" ondrop="handleDrop(event)" ondragover="handleDragOver(event)">
-            Arrastra y suelta tus archivos aquí.
-            <label for="xmlFile" class="file-label">Haz clic para seleccionar</label>
-            <input type="file" id="xmlFile" accept=".xml,.zip" multiple>
         </div>
 
         <div id="buttonContainer">

@@ -3,8 +3,8 @@ body {
     text-align: center;
     margin: 0;
     background-color: #252525;
-    background-image: url('img/f4.png'); 
-    background-size: cover; 
+    background-image: url('img/f4.png');
+    background-size: cover;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -54,7 +54,7 @@ h1 {
     padding: 50px 200px;
     text-align: center;
     cursor: pointer;
-    margin-top: 50px;
+    margin-top: 0px;
     margin-bottom: 50px;
     background-color: #656565;
     color: white;
@@ -112,7 +112,8 @@ h1 {
     background-color: #9e7a03;
 }
 
-#deleteButton, #analyzeButton {
+#deleteButton,
+#analyzeButton {
     margin: 5px;
 }
 
@@ -148,22 +149,28 @@ h1 {
 }
 
 .logo {
-    position: fixed; /* Cambiado de absolute a fixed */
-    bottom: 20px; /* Cambiado de top a bottom */
+    position: fixed;
+    bottom: 20px;
     left: 20px;
     width: 300px;
     height: auto;
 }
 
-
 /* Estilos para pantallas con un ancho máximo de 600px */
 @media only screen and (max-width: 600px) {
-    
+
     .drop-area {
-         padding: 30px 50px; /* Reducir el padding */
+        padding: 30px 50px;
+        /* Reducir el padding */
     }
- 
-    h1, .drop-area p, .file-label, #analyzeButton {
-         font-size: 14px; /* Reducir el tamaño de la fuente */
+
+    h1,
+    .drop-area p,
+    .file-label,
+    #analyzeButton {
+        font-size: 14px;
+        /* Reducir el tamaño de la fuente */
     }
- }
+
+
+}
