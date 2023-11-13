@@ -11,9 +11,7 @@
 <body>
     <header>
         <h1> Conozca qué contiene su factura electrónica </h1>
-        <a href="https://www.creativosdigitales.co">
-            <img class="logo" src="logoCreaSvgColor.svg" alt="Logo">
-        </a>        
+    
     </header>
 
     <div class="container">
@@ -23,22 +21,6 @@
             <label for="xmlFile" class="file-label">Haz clic para seleccionar</label>
             <input type="file" id="xmlFile" accept=".xml,.zip" multiple>
         </div>
-
-        <div id="tutorial" style="margin: 20px 0; padding: 10px; border: 1px solid #ccc;">
-            <p>Bienvenido a la aplicación de facturación electrónica.<br>
-                ¡Ahora puede ver que contienen realmente sus documentos electrónicos!<br>
-
-            Arrastre aquí sus facturas, notas o documentos soporte en formato XML o ZIP (no en PDF)
-
-            y obtendrá un libro de Excel con todos los datos que contiene.<br>
-            
-            Puede arrastrar un máximo de 20 archivos a la vez. <br></p>
-            
-            <p>¿Le gustaría cargar esos mismos documentos directamente en sus sistemas de Contabilidad, Tesorería, Inventarios? O incluso en cualquier otro sistema de su empresa.<br>
-            
-            Hablemos: Da click en el logo que dice "Creativos digitales". </p>
-        </div>
-
         <div id="buttonContainer">
             <button id="deleteButton" style="display: none;">Eliminar archivos</button>
             <button id="analyzeButton" style="display: none;">Exportar a Excel</button>
@@ -47,6 +29,29 @@
         <div id="fileNames"></div>
 
         <script src="script.js"></script>
+
+        <div id="tutorial" style="margin: 20px 0; padding: 10px; border: 1px solid #ccc;">
+            <p> ¡Ahora puede ver que contienen realmente sus documentos electrónicos!<br>
+
+            Arrastre aquí sus facturas, notas o documentos soporte en formato XML o ZIP (no en PDF)
+
+            y obtendrá un libro de Excel con todos los datos que contiene.<br>
+            
+            Puede arrastrar un máximo de 20 archivos a la vez. <br></p>
+            
+            <p>¿Le gustaría cargar esos mismos documentos directamente en sus sistemas de Contabilidad, Tesorería, Inventarios? O incluso en cualquier otro sistema de su empresa.<br>
+                
+            Hablemos: <a href="https://www.creativosdigitales.co/espanol-ubicacion/">"Haga click aqui para que hablemos".</a> </p>
+        </div>
+
+        <a href="https://www.creativosdigitales.co">
+            <img class="logo" src="logoCreaSvgColor.svg" alt="Logo">
+
+        </a>    
+
+
+
+
     </div>
 </body>
 </html>

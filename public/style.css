@@ -20,7 +20,7 @@ header {
 h1 {
     color: #ffffff;
     text-shadow: 1px 1px 1px #0000008c;
-    font-family: 18px "Source Sans Pro", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     font-size: 40px;
     margin: 0;
 }
@@ -55,7 +55,7 @@ h1 {
     padding: 50px 200px;
     text-align: center;
     cursor: pointer;
-    margin-top: 0px;
+    margin-top: 50px;
     margin-bottom: 50px;
     background-color: #eae8d1;
     color: #c78d58;
@@ -129,7 +129,7 @@ h1 {
     margin-bottom: 20px;
     max-width: 400px;
     text-align: center;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 #fileNames p {
@@ -150,9 +150,10 @@ h1 {
 }
 
 .logo {
-    position: fixed;
+    position: relative;
+    margin-top: 10px;
     bottom: 20px;
-    left: 20px;
+    right: 500px;
     width: 300px;
     height: auto;
 }
