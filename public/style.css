@@ -152,11 +152,12 @@ h1 {
 
 .logo {
     position: relative;
-    bottom: 0;
-    top: 100px;
-    right: 780px;
-    width: 300px;
+    float: left;
+    width: 100%;
+    top: 10px;
+    max-width: 300px;
     height: auto;
+    background-size: cover;
 }
 
 /* Estilos para pantallas con un ancho máximo de 600px */
