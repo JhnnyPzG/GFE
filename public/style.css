@@ -152,9 +152,9 @@ h1 {
 
 .logo {
     position: relative;
-    margin-top: 20px;
-    bottom: 20px;
-    right: 500px;
+    bottom: 0;
+    top: 100px;
+    right: 780px;
     width: 300px;
     height: auto;
 }
